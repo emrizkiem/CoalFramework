@@ -40,7 +40,7 @@ jobs:
       - name: Get Latest Tag
         id: get_tag
         run: |
-          TAG=$(git describe --tags --abbrev=0)
+          TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
           echo "Current tag: $TAG"
           echo "::set-output name=latest_tag::$TAG"
 
