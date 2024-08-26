@@ -1,0 +1,46 @@
+
+# Xcode
+DerivedData/
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcworkspacedata
+
+# Build generated files
+build/
+*.ipa
+*.app
+*.dSYM.zip
+*.dSYM
+*.xcarchive
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Code signing
+*.xcconfig
+*.mobileprovision
+*.cer
+*.p12
+*.xcworkspace/xcuserdata/
+
+# Xcode automatically generated localizable strings
+*/.strings
+
+# Xcode environment settings
+.xcenv
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Temporary files generated during development
+*.swp
+*~
