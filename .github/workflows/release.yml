@@ -21,7 +21,7 @@ jobs:
 
       - name: Install CocoaPods
         run: gem install cocoapods
-
+        
       - name: Set Git Config
         run: |
           git config --global user.name "ArifRach"
@@ -34,32 +34,15 @@ jobs:
           echo "Latest commit message: $COMMIT_MESSAGE"
           echo "::set-output name=commit_message::$COMMIT_MESSAGE"
 
-      - name: Fetch Tags
-        run: git fetch --tags
-
-      - name: Get Latest Tag
-        id: get_tag
+      - name: Update Tag 0.0.1 with latest commit
         run: |
-          TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.0.")
-          echo "Current tag: $TAG"
-          echo "::set-output name=latest_tag::$TAG"
-
-      - name: Increment Version Tag
-        id: increment_tag
-        run: |
-          TAG=${{ steps.get_tag.outputs.latest_tag }}
-          VERSION=$(echo $TAG | awk -F. '{print $3+1}')
-          NEW_TAG="0.0.${VERSION}"
-          echo "New tag: $NEW_TAG"
-          git tag -d $TAG || true
-          git tag -a $NEW_TAG -m "${{ steps.get_commit_message.outputs.commit_message }}"
-          git push origin $NEW_TAG --force
-          echo "::set-output name=new_tag::$NEW_TAG"
+          git tag -a 0.0.1 -m "${{ steps.get_commit_message.outputs.commit_message }}"
+          git push origin 0.0.1 --force
 
       - name: Delete Old Pod Version from Trunk
         run: |
           OLD_TAG=${{ steps.get_tag.outputs.latest_tag }}
-          pod trunk delete CoalFramework $OLD_TAG || true
+          pod trunk delete CoalFramework $OLD_TAG
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
 
