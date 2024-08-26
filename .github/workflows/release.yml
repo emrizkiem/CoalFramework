@@ -31,7 +31,7 @@ jobs:
 
       - name: Update Tag 0.0.1 with latest commit
         run: |
-          git tag -d 0.0.1
+          git tag -D 0.0.1
           git tag -a 0.0.1 -m "${{ steps.get_commit_message.outputs.commit_message }}"
           git push origin 0.0.1 --force
 
