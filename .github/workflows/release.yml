@@ -1,0 +1,64 @@
+name: Auto Publish CoalFramework to CocoaPods
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  replace_tag_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0' 
+          bundler-cache: true
+
+      - name: Install CocoaPods
+        run: gem install cocoapods
+
+      - name: Get Latest Commit Message
+        id: get_commit_message
+        run: |
+          COMMIT_MESSAGE=$(git log -1 --pretty=format:%s)
+          echo "Latest commit message: $COMMIT_MESSAGE"
+          echo "::set-output name=commit_message::$COMMIT_MESSAGE"
+
+      - name: Get Latest Tag
+        id: get_tag
+        run: |
+          TAG=$(git describe --tags --abbrev=0)
+          echo "Current tag: $TAG"
+          echo "::set-output name=latest_tag::$TAG"
+
+      - name: Increment Version Tag
+        id: increment_tag
+        run: |
+          TAG=${{ steps.get_tag.outputs.latest_tag }}
+          VERSION=$(echo $TAG | awk -F. '{print $3+1}')
+          NEW_TAG="0.0.${VERSION}"
+          echo "New tag: $NEW_TAG"
+          git tag -d $TAG
+          git tag -a $NEW_TAG -m "${{ steps.get_commit_message.outputs.commit_message }}"
+          git push origin $NEW_TAG --force
+          echo "::set-output name=new_tag::$NEW_TAG"
+
+      - name: Delete Old Pod Version from Trunk
+        run: |
+          OLD_TAG=${{ steps.get_tag.outputs.latest_tag }}
+          pod trunk delete CoalFramework $OLD_TAG
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+
+      - name: Push Podspec to CocoaPods Trunk
+        run: |
+          NEW_TAG=${{ steps.increment_tag.outputs.new_tag }}
+          sed -i '' "s/s.version          = '$OLD_TAG'/s.version          = '$NEW_TAG'/g" CoalFramework.podspec
+          pod trunk push CoalFramework.podspec --allow-warnings
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
