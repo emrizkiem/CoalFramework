@@ -21,7 +21,7 @@ jobs:
 
       - name: Install CocoaPods
         run: gem install cocoapods
-        
+
       - name: Set Git Config
         run: |
           git config --global user.name "ArifRach"
@@ -34,10 +34,31 @@ jobs:
           echo "Latest commit message: $COMMIT_MESSAGE"
           echo "::set-output name=commit_message::$COMMIT_MESSAGE"
 
-      - name: Update Tag 0.0.1 with latest commit
+      - name: Fetch Tags
+        run: git fetch --tags
+
+      - name: Get Latest Tag
+        id: get_tag
         run: |
-          git tag -a 0.0.1 -m "${{ steps.get_commit_message.outputs.commit_message }}"
-          git push origin 0.0.1 --force
+          TAG=$(git describe --tags --abbrev=0)
+          echo "Current tag: $TAG"
+          echo "::set-output name=latest_tag::$TAG"
+
+      - name: Get major version num and update tag
+        id: update_tag_commit
+        run: |
+          OLD_TAG=${{ steps.get_tag.outputs.latest_tag }}
+          VERSION_PARTS=(${OLD_TAG//./ })
+          PATCH_VERSION=$((VERSION_PARTS[2] + 1))
+          NEW_TAG="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${PATCH_VERSION}"
+          echo "Old tag: $OLD_TAG"
+          echo "New tag: $NEW_TAG"
+          git config --global user.name "ArifRach"
+          git config --global user.email "Arifrach31@gmail.com"
+          git tag -d $OLD_TAG || true
+          git tag -a $NEW_TAG -m "${{ steps.get_commit_message.outputs.commit_message }}"
+          git push origin $NEW_TAG --force
+          echo "::set-output name=new_tag::$NEW_TAG"
 
       - name: Delete Old Pod Version from Trunk
         run: |
