@@ -88,7 +88,7 @@ jobs:
           DATE=$(date +"%B %d, %H:%M")
           
           if [ "$PUSH_STATUS" == "success" ]; then
-            MESSAGE="🎉 Coal-iOS%0A%0A🚀 Congrats <b>v$PODSPEC_VERSION</b> successfully published%0A📅 $DATE%0A⚜️ https://cocoapods.org/pods/CoalFramework%0A👍 Tell your Client!"
+            MESSAGE="🎉 Coal-iOS%0A%0A🚀 <b>Version $PODSPEC_VERSION successfully published</b>%0A📅 $DATE%0A⚜️ https://cocoapods.org/pods/CoalFramework%0A👍 Tell your Client!"
           elif [ "$PUSH_STATUS" == "no_update" ]; then
             MESSAGE="♻️ Coal-iOS is already up to date."
           else
