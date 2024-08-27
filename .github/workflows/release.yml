@@ -67,9 +67,9 @@ jobs:
       - name: Push Podspec to CocoaPods Trunk
         run: |
           PODSPEC_VERSION=${{ steps.get_podspec_version.outputs.podspec_version }}
-          NEW_TAG=${{ steps.update_tag_commit.outputs.new_tag }}
+          NEW_TAG=${{ steps.get_latest_tag.outputs.latest_tag }}
 
-          if [ "$PODSPEC_VERSION" = "$NEW_TAG" ]; then
+          if [ "$PODSPEC_VERSION" != "$NEW_TAG" ]; then
             echo "Pushing $PODSPEC_VERSION to CocoaPods Trunk."
             pod trunk push CoalFramework.podspec --allow-warnings
           else
