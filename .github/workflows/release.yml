@@ -39,7 +39,7 @@ jobs:
           echo "Current tag: $TAG"
           echo "::set-output name=latest_tag::$TAG"
 
-      - name: Increment tag version
+      - name: Increment tag version Cocoapods
         id: update_tag_commit
         run: |
           OLD_TAG=${{ steps.get_tag.outputs.latest_tag }}
@@ -54,13 +54,6 @@ jobs:
           git tag -a $NEW_TAG -m "${{ steps.get_commit_message.outputs.commit_message }}"
           git push origin $NEW_TAG --force
           echo "::set-output name=new_tag::$NEW_TAG"
-
-      - name: Delete Old Pod Version from Trunk
-        run: |
-          OLD_TAG=${{ steps.get_tag.outputs.latest_tag }}
-          pod trunk delete CoalFramework $OLD_TAG
-        env:
-          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
 
       - name: Push Podspec to CocoaPods Trunk
         run: |
