@@ -16,7 +16,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0'
+          ruby-version: '3.0' 
           bundler-cache: true
 
       - name: Install CocoaPods
@@ -29,7 +29,7 @@ jobs:
           echo "Latest commit message: $COMMIT_MESSAGE"
           echo "::set-output name=commit_message::$COMMIT_MESSAGE"
 
-      - name: Fetch Tags
+      - name: Fetch All Tags
         run: git fetch --tags
 
       - name: Get Latest Tag
@@ -39,21 +39,14 @@ jobs:
           echo "Current tag: $TAG"
           echo "::set-output name=latest_tag::$TAG"
 
-      - name: Read version from Podspec
-        id: read_podspec_version
-        run: |
-          PODSPEC_VERSION=$(grep -E 's.version[[:space:]]*=' CoalFramework.podspec | sed -E "s/.*= '(.*)'/\1/")
-          echo "Podspec version: $PODSPEC_VERSION"
-          echo "::set-output name=podspec_version::$PODSPEC_VERSION"
-
-      - name: Compare versions and update tag if needed
+      - name: Check and Create New Tag
         id: update_tag_commit
         run: |
           OLD_TAG=${{ steps.get_tag.outputs.latest_tag }}
-          PODSPEC_VERSION=${{ steps.read_podspec_version.outputs.podspec_version }}
-
-          if [ "$OLD_TAG" == "$PODSPEC_VERSION" ]; then
-            echo "Versions match, no new tag needed."
+          PODSPEC_VERSION=$(grep -o "s.version.*=.*'.*'" CoalFramework.podspec | awk -F"'" '{print $2}')
+          
+          if git rev-parse "$PODSPEC_VERSION" >/dev/null 2>&1; then
+            echo "Tag $PODSPEC_VERSION already exists. No new tag needed."
             echo "::set-output name=new_tag::$OLD_TAG"
           else
             echo "Versions differ, creating a new tag."
