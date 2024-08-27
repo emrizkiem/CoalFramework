@@ -16,7 +16,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0' 
+          ruby-version: '3.0'
           bundler-cache: true
 
       - name: Install CocoaPods
@@ -32,37 +32,48 @@ jobs:
       - name: Fetch All Tags
         run: git fetch --tags
 
-      - name: Get Latest Tag
-        id: get_tag
+      - name: Get Podspec Version
+        id: get_podspec_version
         run: |
-          TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
-          echo "Current tag: $TAG"
-          echo "::set-output name=latest_tag::$TAG"
+          PODSPEC_VERSION=$(grep -o "s.version.*=.*'.*'" CoalFramework.podspec | awk -F"'" '{print $2}')
+          echo "Podspec version: $PODSPEC_VERSION"
+          echo "::set-output name=podspec_version::$PODSPEC_VERSION"
+
+      - name: Get Latest Tag
+        id: get_latest_tag
+        run: |
+          LATEST_TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
+          echo "Latest tag: $LATEST_TAG"
+          echo "::set-output name=latest_tag::$LATEST_TAG"
 
       - name: Check and Create New Tag
         id: update_tag_commit
         run: |
-          OLD_TAG=${{ steps.get_tag.outputs.latest_tag }}
-          PODSPEC_VERSION=$(grep -o "s.version.*=.*'.*'" CoalFramework.podspec | awk -F"'" '{print $2}')
-          
+          PODSPEC_VERSION=${{ steps.get_podspec_version.outputs.podspec_version }}
+          LATEST_TAG=${{ steps.get_latest_tag.outputs.latest_tag }}
+
           if git rev-parse "$PODSPEC_VERSION" >/dev/null 2>&1; then
-            echo "Tag $PODSPEC_VERSION already exists. No new tag needed."
-            echo "Podspec version exists"
-            echo "::set-output name=new_tag::$OLD_TAG"
-            exit 1
+            echo "Podspec version $PODSPEC_VERSION already exists as a tag."
+            echo "::set-output name=new_tag::$LATEST_TAG"
           else
-            echo "Versions differ, creating a new tag."
+            echo "Creating new tag $PODSPEC_VERSION."
             git config --global user.name "ArifRach"
             git config --global user.email "Arifrach31@gmail.com"
-            git tag -d $OLD_TAG || true
-            git tag -a $PODSPEC_VERSION -m "${{ steps.get_commit_message.outputs.commit_message }}"
-            git push origin $PODSPEC_VERSION --force
+            git tag -a $PODSPEC_VERSION -m "Release $PODSPEC_VERSION: ${{ steps.get_commit_message.outputs.commit_message }}"
+            git push origin $PODSPEC_VERSION
             echo "::set-output name=new_tag::$PODSPEC_VERSION"
           fi
 
       - name: Push Podspec to CocoaPods Trunk
         run: |
+          PODSPEC_VERSION=${{ steps.get_podspec_version.outputs.podspec_version }}
           NEW_TAG=${{ steps.update_tag_commit.outputs.new_tag }}
-          pod trunk push CoalFramework.podspec --allow-warnings
+
+          if [ "$PODSPEC_VERSION" = "$NEW_TAG" ]; then
+            echo "Pushing $PODSPEC_VERSION to CocoaPods Trunk."
+            pod trunk push CoalFramework.podspec --allow-warnings
+          else
+            echo "No need to push. Latest tag is already up to date."
+          fi
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
