@@ -65,15 +65,37 @@ jobs:
           fi
 
       - name: Push Podspec to CocoaPods Trunk
+        id: push_podspec
         run: |
           PODSPEC_VERSION=${{ steps.get_podspec_version.outputs.podspec_version }}
-          NEW_TAG=${{ steps.get_latest_tag.outputs.latest_tag }}
+          LATEST_TAG=${{ steps.get_latest_tag.outputs.latest_tag }}
 
-          if [ "$PODSPEC_VERSION" != "$NEW_TAG" ]; then
+          if [ "$PODSPEC_VERSION" != "$LATEST_TAG" ]; then
             echo "Pushing $PODSPEC_VERSION to CocoaPods Trunk."
             pod trunk push CoalFramework.podspec --allow-warnings
+            echo "::set-output name=push_status::success"
           else
             echo "No need to push. Latest tag is already up to date."
+            echo "::set-output name=push_status::no_update"
           fi
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+
+      - name: Notify Telegram of Deployment Result
+        run: |
+          PODSPEC_VERSION=${{ steps.get_podspec_version.outputs.podspec_version }}
+          PUSH_STATUS=${{ steps.push_podspec.outputs.push_status }}
+
+          if [ "$PUSH_STATUS" == "success" ]; then
+            MESSAGE="Coal-iOS: New version $PODSPEC_VERSION has been successfully published to CocoaPods Trunk."
+          elif [ "$PUSH_STATUS" == "no_update" ]; then
+            MESSAGE="Coal-iOS: No update needed. Latest tag is already up to date."
+          else
+            MESSAGE="Coal-iOS: Failed to push Podspec version $PODSPEC_VERSION to CocoaPods Trunk."
+          fi
+
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d text="$MESSAGE"
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
