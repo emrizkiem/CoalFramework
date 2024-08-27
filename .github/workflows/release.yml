@@ -75,9 +75,7 @@ jobs:
             pod trunk push CoalFramework.podspec --allow-warnings
             echo "::set-output name=push_status::success"
           else
-            pod trunk delete CoalFramework $LATEST_TAG
-            pod trunk push CoalFramework.podspec 
-            echo "Replace pod trunk version $PODSPEC_VERSION to latest changes"
+            echo "No need to push. Latest tag is already up to date."
             echo "::set-output name=push_status::no_update"
           fi
         env:
