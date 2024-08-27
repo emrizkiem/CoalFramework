@@ -100,6 +100,10 @@ public class LoginViewController: CoalViewController {
     logoImageView.contentMode = .scaleAspectFit
     logoImageView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(logoImageView)
+
+    if let form = config?.form {
+      
+    }
     
     //    if let form = config?.form {
     //      form.username?.label
