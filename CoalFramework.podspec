@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'CoalFramework'
-  s.version          = '0.0.6'
+  s.version          = '0.0.7'
   s.summary          = 'A Core App Library (Coal)'
   s.homepage         = 'https://github.com/emrizkiem/CoalFramework'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
