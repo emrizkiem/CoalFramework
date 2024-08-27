@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'CoalFramework'
   s.version          = '0.0.1'
-  s.summary          = 'A Core App Library'
+  s.summary          = 'A Core App Library (Coal)'
   s.homepage         = 'https://github.com/emrizkiem/CoalFramework'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'ArifRach' => 'arifrach31@gmail.com', 'M. Rizki Maulana' => 'devemrizkiem@gmail.com' }
