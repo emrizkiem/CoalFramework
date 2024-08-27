@@ -88,11 +88,11 @@ jobs:
           DATE=$(date +"%B %d, %H:%M")
           
           if [ "$PUSH_STATUS" == "success" ]; then
-            MESSAGE="<b>🎉 Congrats</b>\n🚀 Coal-iOS <b>$PODSPEC_VERSION</b> successfully published\n📅 $DATE\n⚜️ <a href=\"https://cocoapods.org/pods/CoalFramework\">https://cocoapods.org/pods/CoalFramework</a>\n👍 Tell your Client!"
+            MESSAGE="<b>🎉 Congrats</b><br>🚀 Coal-iOS <b>$PODSPEC_VERSION</b> successfully published<br>📅 $DATE<br>⚜️ <a href=\"https://cocoapods.org/pods/CoalFramework\">https://cocoapods.org/pods/CoalFramework</a><br>👍 Tell your Client!"
           elif [ "$PUSH_STATUS" == "no_update" ]; then
-            MESSAGE="<b>♻️ Coal-iOS is already up to date.</b>\n📅 $DATE\n⚜️ <a href=\"https://cocoapods.org/pods/CoalFramework\">https://cocoapods.org/pods/CoalFramework</a>\n👍 Tell your Client!"
+            MESSAGE="<b>♻️ Coal-iOS is already up to date."
           else
-            MESSAGE="<b>❌ Failed to push Podspec version $PODSPEC_VERSION to CocoaPods Trunk.</b>\n📅 $DATE"
+            MESSAGE="<b>❌ Failed to push Podspec version $PODSPEC_VERSION to CocoaPods Trunk."
           fi
 
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
