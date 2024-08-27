@@ -84,14 +84,16 @@ jobs:
       - name: Notify Telegram of Deployment Result
         run: |
           PODSPEC_VERSION=${{ steps.get_podspec_version.outputs.podspec_version }}
+          LATEST_TAG=${{ steps.get_latest_tag.outputs.latest_tag }}
           PUSH_STATUS=${{ steps.push_podspec.outputs.push_status }}
-
+          DATE=$(date +"%B %d, %H:%M")
+          
           if [ "$PUSH_STATUS" == "success" ]; then
-            MESSAGE="Coal-iOS: New version $PODSPEC_VERSION has been successfully published to CocoaPods Trunk."
+            MESSAGE="🎉 Congrats\n🚀 Coal-iOS $PODSPEC_VERSION successfully published\n📅 $DATE\n⚜️ https://cocoapods.org/pods/CoalFramework\n👍  Tell your Client!"
           elif [ "$PUSH_STATUS" == "no_update" ]; then
-            MESSAGE="Coal-iOS: No update needed. Latest tag is already up to date."
+            MESSAGE="♻️  Coal-iOS already up to date."
           else
-            MESSAGE="Coal-iOS: Failed to push Podspec version $PODSPEC_VERSION to CocoaPods Trunk."
+            MESSAGE="❌ Failed to push Podspec version $PODSPEC_VERSION to CocoaPods Trunk."
           fi
 
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
