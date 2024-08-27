@@ -88,7 +88,7 @@ jobs:
           DATE=$(date +"%B %d, %H:%M")
           
           if [ "$PUSH_STATUS" == "success" ]; then
-            MESSAGE="🎉 Congrats\n\n🚀 Coal-iOS *$PODSPEC_VERSION* successfully published\n📅 $DATE\n\n⚜️ [https://cocoapods.org/pods/CoalFramework](https://cocoapods.org/pods/CoalFramework)\n👍 Tell your Client!"
+            MESSAGE="🎉 Congrats%0A%0A🚀 Coal-iOS *$PODSPEC_VERSION* successfully published%0A📅 $DATE%0A⚜️ [https://cocoapods.org/pods/CoalFramework](https://cocoapods.org/pods/CoalFramework)%0A👍 Tell your Client!"
           elif [ "$PUSH_STATUS" == "no_update" ]; then
             MESSAGE="♻️ Coal-iOS is already up to date."
           else
@@ -98,6 +98,6 @@ jobs:
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
             -d text="$MESSAGE" \
-            -d parse_mode="MarkdownV2"
+            -d parse_mode="HTML"
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
