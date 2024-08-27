@@ -2,8 +2,8 @@
 
 [![Version](https://img.shields.io/cocoapods/v/CoalFramework.svg?style=flat)](https://cocoapods.org/pods/CoalFramework)
 [![License](https://img.shields.io/cocoapods/l/CoalFramework.svg?style=flat)](https://cocoapods.org/pods/CoalFramework)
-[![Platform](https://img.shields.io/cocoapods/p/CoalFramework.svg?style=flat)](https://cocoapods.org/pods/CoalFramework)
 [![Swift Version](https://img.shields.io/badge/swift-5.0-orange.svg?style=flat)](https://swift.org)
+[![Platform](https://img.shields.io/cocoapods/p/CoalFramework.svg?style=flat)](https://cocoapods.org/pods/CoalFramework)
 
 A Core App Library (Coal) that simplifies and enhances app development.
 
