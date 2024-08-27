@@ -47,7 +47,9 @@ jobs:
           
           if git rev-parse "$PODSPEC_VERSION" >/dev/null 2>&1; then
             echo "Tag $PODSPEC_VERSION already exists. No new tag needed."
+            echo "Podspec version exists"
             echo "::set-output name=new_tag::$OLD_TAG"
+            exit 1
           else
             echo "Versions differ, creating a new tag."
             git config --global user.name "ArifRach"
