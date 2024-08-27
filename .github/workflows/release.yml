@@ -27,7 +27,7 @@ jobs:
         run: |
           COMMIT_MESSAGE=$(git log -1 --pretty=format:%s)
           echo "Latest commit message: $COMMIT_MESSAGE"
-          echo "::set-output name=commit_message::$COMMIT_MESSAGE"
+          echo "commit_message=$COMMIT_MESSAGE" >> $GITHUB_ENV
 
       - name: Fetch All Tags
         run: git fetch --tags
@@ -37,68 +37,67 @@ jobs:
         run: |
           PODSPEC_VERSION=$(grep -o "s.version.*=.*'.*'" CoalFramework.podspec | awk -F"'" '{print $2}')
           echo "Podspec version: $PODSPEC_VERSION"
-          echo "::set-output name=podspec_version::$PODSPEC_VERSION"
+          echo "podspec_version=$PODSPEC_VERSION" >> $GITHUB_ENV
 
       - name: Get Latest Tag
         id: get_latest_tag
         run: |
           LATEST_TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
           echo "Latest tag: $LATEST_TAG"
-          echo "::set-output name=latest_tag::$LATEST_TAG"
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_ENV
 
       - name: Check and Create New Tag
         id: update_tag_commit
         run: |
-          PODSPEC_VERSION=${{ steps.get_podspec_version.outputs.podspec_version }}
-          LATEST_TAG=${{ steps.get_latest_tag.outputs.latest_tag }}
+          PODSPEC_VERSION=${{ env.podspec_version }}
+          LATEST_TAG=${{ env.latest_tag }}
 
           if git rev-parse "$PODSPEC_VERSION" >/dev/null 2>&1; then
             echo "Podspec version $PODSPEC_VERSION already exists as a tag."
-            echo "::set-output name=new_tag::$LATEST_TAG"
+            echo "new_tag=$LATEST_TAG" >> $GITHUB_ENV
           else
             echo "Creating new tag $PODSPEC_VERSION."
             git config --global user.name "ArifRach"
             git config --global user.email "Arifrach31@gmail.com"
-            git tag -a $PODSPEC_VERSION -m "Release $PODSPEC_VERSION: ${{ steps.get_commit_message.outputs.commit_message }}"
+            git tag -a $PODSPEC_VERSION -m "Release $PODSPEC_VERSION: ${{ env.commit_message }}"
             git push origin $PODSPEC_VERSION
-            echo "::set-output name=new_tag::$PODSPEC_VERSION"
+            echo "new_tag=$PODSPEC_VERSION" >> $GITHUB_ENV
           fi
 
       - name: Push Podspec to CocoaPods Trunk
         id: push_podspec
         run: |
-          PODSPEC_VERSION=${{ steps.get_podspec_version.outputs.podspec_version }}
-          LATEST_TAG=${{ steps.get_latest_tag.outputs.latest_tag }}
+          PODSPEC_VERSION=${{ env.podspec_version }}
+          LATEST_TAG=${{ env.latest_tag }}
 
           if [ "$PODSPEC_VERSION" != "$LATEST_TAG" ]; then
             echo "Pushing $PODSPEC_VERSION to CocoaPods Trunk."
             pod trunk push CoalFramework.podspec --allow-warnings
-            echo "::set-output name=push_status::success"
+            echo "push_status=success" >> $GITHUB_ENV
           else
             echo "No need to push. Latest tag is already up to date."
-            echo "::set-output name=push_status::no_update"
+            echo "push_status=no_update" >> $GITHUB_ENV
           fi
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
 
       - name: Notify Telegram of Deployment Result
         run: |
-          PODSPEC_VERSION=${{ steps.get_podspec_version.outputs.podspec_version }}
-          PUSH_STATUS=${{ steps.push_podspec.outputs.push_status }}
+          PODSPEC_VERSION=${{ env.podspec_version }}
+          PUSH_STATUS=${{ env.push_status }}
           DATE=$(date +"%B %d, %H:%M")
           
           if [ "$PUSH_STATUS" == "success" ]; then
-            MESSAGE="🎉 Congrats\n🚀 Coal-iOS $PODSPEC_VERSION successfully published\n📅 $DATE\n⚜️ https://cocoapods.org/pods/CoalFramework\n👍 Tell your Client!"
+            MESSAGE="🎉 Congrats\n\n🚀 Coal-iOS *$PODSPEC_VERSION* successfully published\n📅 $DATE]\n⚜️ <a href='https://cocoapods.org/pods/CoalFramework'>https://cocoapods.org/pods/CoalFramework</a>\n👍 Tell your Client!"
           elif [ "$PUSH_STATUS" == "no_update" ]; then
             MESSAGE="♻️ Coal-iOS is already up to date."
           else
-            MESSAGE="❌ Failed to push Podspec version $PODSPEC_VERSION to CocoaPods Trunk."
+            MESSAGE="❌ Failed to push Podspec version *$PODSPEC_VERSION* to CocoaPods Trunk."
           fi
-
-          URL_ENCODED_MESSAGE=$(echo "$MESSAGE" | jq -sRr @uri)
 
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
-            -d text="$URL_ENCODED_MESSAGE"
+            -d text="$MESSAGE" \
+            -d parse_mode="HTML"
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
