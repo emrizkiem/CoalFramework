@@ -22,11 +22,6 @@ jobs:
       - name: Install CocoaPods
         run: gem install cocoapods
 
-      - name: Set Git Config
-        run: |
-          git config --global user.name "ArifRach"
-          git config --global user.email "Arifrach31@gmail.com"
-
       - name: Get Latest Commit Message
         id: get_commit_message
         run: |
@@ -44,7 +39,7 @@ jobs:
           echo "Current tag: $TAG"
           echo "::set-output name=latest_tag::$TAG"
 
-      - name: Get major version num and update tag
+      - name: Increment tag version
         id: update_tag_commit
         run: |
           OLD_TAG=${{ steps.get_tag.outputs.latest_tag }}
