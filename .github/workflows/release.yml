@@ -16,7 +16,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0' 
+          ruby-version: '3.0'
           bundler-cache: true
 
       - name: Install CocoaPods
@@ -39,26 +39,35 @@ jobs:
           echo "Current tag: $TAG"
           echo "::set-output name=latest_tag::$TAG"
 
-      - name: Increment tag version Cocoapods
+      - name: Read version from Podspec
+        id: read_podspec_version
+        run: |
+          PODSPEC_VERSION=$(grep -E 's.version[[:space:]]*=' CoalFramework.podspec | sed -E "s/.*= '(.*)'/\1/")
+          echo "Podspec version: $PODSPEC_VERSION"
+          echo "::set-output name=podspec_version::$PODSPEC_VERSION"
+
+      - name: Compare versions and update tag if needed
         id: update_tag_commit
         run: |
           OLD_TAG=${{ steps.get_tag.outputs.latest_tag }}
-          VERSION_PARTS=(${OLD_TAG//./ })
-          PATCH_VERSION=$((VERSION_PARTS[2] + 1))
-          NEW_TAG="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.${PATCH_VERSION}"
-          echo "Old tag: $OLD_TAG"
-          echo "New tag: $NEW_TAG"
-          git config --global user.name "ArifRach"
-          git config --global user.email "Arifrach31@gmail.com"
-          git tag -d $OLD_TAG || true
-          git tag -a $NEW_TAG -m "${{ steps.get_commit_message.outputs.commit_message }}"
-          git push origin $NEW_TAG --force
-          echo "::set-output name=new_tag::$NEW_TAG"
+          PODSPEC_VERSION=${{ steps.read_podspec_version.outputs.podspec_version }}
+
+          if [ "$OLD_TAG" == "$PODSPEC_VERSION" ]; then
+            echo "Versions match, no new tag needed."
+            echo "::set-output name=new_tag::$OLD_TAG"
+          else
+            echo "Versions differ, creating a new tag."
+            git config --global user.name "ArifRach"
+            git config --global user.email "Arifrach31@gmail.com"
+            git tag -d $OLD_TAG || true
+            git tag -a $PODSPEC_VERSION -m "${{ steps.get_commit_message.outputs.commit_message }}"
+            git push origin $PODSPEC_VERSION --force
+            echo "::set-output name=new_tag::$PODSPEC_VERSION"
+          fi
 
       - name: Push Podspec to CocoaPods Trunk
         run: |
-          NEW_TAG=${{ steps.increment_tag.outputs.new_tag }}
-          sed -i '' "s/s.version          = '$OLD_TAG'/s.version          = '$NEW_TAG'/g" CoalFramework.podspec
+          NEW_TAG=${{ steps.update_tag_commit.outputs.new_tag }}
           pod trunk push CoalFramework.podspec --allow-warnings
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
