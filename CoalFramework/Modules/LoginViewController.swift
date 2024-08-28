@@ -28,16 +28,29 @@ public class LoginViewController: CoalViewController {
   private let logoImageView = UIImageView()
   public weak var delegate: LoginNavigationDelegate?
   
-  private lazy var loginLabel: CoalLabel = {
-    let label = CoalLabel(fontSize: 26, weight: .bold, text: "Login")
-    return label
+  private lazy var titleLabel: CoalLabel = {
+    return CoalLabel(fontSize: 26, weight: .bold, text: "Login")
   }()
   
-  private let usernameField = CoalTextField(labelText: "Username", placeholder: "Enter your username")
-  private let passwordField = CoalTextField(labelText: "Password", placeholder: "Enter your password", isPassword: true)
+  private lazy var subtitleLabel: CoalLabel = {
+    return CoalLabel(fontSize: 16, weight: .regular, text: "Please enter your username and password")
+  }()
   
-  private let submitButton = CoalButton(title: "SUBMIT", titleColor: .white, backgroundColor: .gray)
-  private let registerButton = CoalButton(title: "REGISTER NOW", titleColor: .gray, backgroundColor: .white, borderWidth: 1, borderColor: UIColor.gray, cornerRadius: 8)
+  private lazy var usernameField: CoalTextField = {
+    return CoalTextField(labelText: "Username", placeholder: "Enter your username", contentType: .username)
+  }()
+  
+  private lazy var passwordField: CoalTextField = {
+    return CoalTextField(labelText: "Password", placeholder: "Enter your password", contentType: .password, isPassword: true)
+  }()
+  
+  private lazy var submitButton: CoalButton = {
+    return CoalButton(title: "SUBMIT", titleColor: .white, backgroundColor: .gray)
+  }()
+  
+  private lazy var registerButton: CoalButton = {
+    return CoalButton(title: "REGISTER NOW", titleColor: .gray, backgroundColor: .white, borderWidth: 1, borderColor: UIColor.gray, cornerRadius: 8)
+  }()
   
   public init(config: ConfigPage?, backgroundColor: UIColor, logo: UIImage?) {
     super.init(backgroundColor: backgroundColor)
@@ -49,7 +62,7 @@ public class LoginViewController: CoalViewController {
   }
   
   override public func setupView() {
-    [logoImageView, loginLabel, usernameField, passwordField, submitButton, registerButton].forEach {
+    [logoImageView, titleLabel, subtitleLabel, usernameField, passwordField, submitButton, registerButton].forEach {
       view.addSubview($0)
       $0.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -67,10 +80,13 @@ public class LoginViewController: CoalViewController {
       logoImageView.widthAnchor.constraint(equalToConstant: 125),
       logoImageView.heightAnchor.constraint(equalToConstant: 125),
       
-      loginLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 20),
-      loginLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+      titleLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 20),
+      titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
       
-      usernameField.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 20),
+      subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+      subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+      
+      usernameField.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 20),
       usernameField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
       usernameField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
       
@@ -100,6 +116,24 @@ public class LoginViewController: CoalViewController {
     logoImageView.contentMode = .scaleAspectFit
     logoImageView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(logoImageView)
+    
+    if let description = config?.header?.description {
+      subtitleLabel.text = description
+    }
+    
+    if let username = config?.form?.username?.label,
+       let placehorder = config?.form?.username?.placeholder {
+      usernameField.updateTextField(labelText: username, placeholder: placehorder, type: .username)
+    }
+    
+    if let password = config?.form?.password?.label,
+       let placeholder = config?.form?.password?.placeholder {
+      passwordField.updateTextField(labelText: password, placeholder: placeholder, type: .password)
+    }
+    
+    if let submit = config?.form?.submit?.label {
+      submitButton.button.setTitle(submit, for: .normal)
+    }
   }
   
   @objc private func submitTapped() {

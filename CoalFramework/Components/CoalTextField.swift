@@ -9,11 +9,11 @@ import UIKit
 
 public class CoalTextField: UIView {
   
-  private lazy var label: CoalLabel = {
+  public lazy var label: CoalLabel = {
     return CoalLabel(fontSize: 15, weight: .regular)
   }()
   
-  private lazy var textField: UITextField = {
+  public lazy var textField: UITextField = {
     let textField = UITextField()
     textField.borderStyle = .roundedRect
     textField.backgroundColor = .white
@@ -38,7 +38,7 @@ public class CoalTextField: UIView {
   
   private var isPassword: Bool = false
   
-  public init(labelText: String, placeholder: String, isPassword: Bool = false) {
+  public init(labelText: String, placeholder: String, contentType: UITextContentType, isPassword: Bool = false) {
     super.init(frame: .zero)
     
     self.label.text = labelText
@@ -116,5 +116,19 @@ public class CoalTextField: UIView {
   
   @objc private func forgotPasswordTapped() {
     print("Forgot password tapped")
+  }
+  
+  public func updateTextField(labelText: String?, placeholder: String?, type: UITextContentType?) {
+    if let labelText = labelText {
+      label.text = labelText
+    }
+    
+    if let placeholder = placeholder {
+      textField.placeholder = placeholder
+    }
+    
+    if let type = type {
+      textField.textContentType = type
+    }
   }
 }
