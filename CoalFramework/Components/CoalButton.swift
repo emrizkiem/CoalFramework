@@ -9,7 +9,7 @@ import UIKit
 
 public class CoalButton: UIView {
   
-  private lazy var button: UIButton = {
+  public lazy var button: UIButton = {
     let button = UIButton(type: .system)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
     button.clipsToBounds = true
