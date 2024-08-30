@@ -28,7 +28,7 @@ enum CoalAPI {
     case .getCurrentUser:
       return "/users/v1/me"
     case .getConfig:
-      return "792cd014-dc58-4d8c-81a1-6978d72386b7"
+      return "sample-json-coal"
     }
   }
   
