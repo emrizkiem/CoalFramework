@@ -9,7 +9,7 @@ import Foundation
 
 struct NetworkConfig {
   static let baseURL = ""
-  static let mockyURL = "https://run.mocky.io/v3/"
+  static let mockyURL = "https://raw.githubusercontent.com/emrizkiem/emrizkiem.github.io/master/"
   
   struct BasicAuth {
     static let username = "microsservice-user"
