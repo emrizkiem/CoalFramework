@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import LegionUI
+import ThemeLGN
 
 public class CoalConfig {
   public static let shared = CoalConfig()
@@ -32,6 +34,7 @@ public class CoalConfig {
     self.splashScreenDuration = splashScreenDuration
     self.window = window
     self.loginDelegate = loginDelegate
+    LGN.configure()
   }
   
   public func fetchConfig() {

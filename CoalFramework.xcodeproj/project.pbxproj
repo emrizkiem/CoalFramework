@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		117F5F432C7C185500049CBB /* Assets.xcassets in Sources */ = {isa = PBXBuildFile; fileRef = 11E0176E2C6486AB00AC0395 /* Assets.xcassets */; };
 		117F5FAB2C86897C00049CBB /* NetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117F5FAA2C86897C00049CBB /* NetworkObserver.swift */; };
+		117F5FAE2C868E4E00049CBB /* LegionUI in Frameworks */ = {isa = PBXBuildFile; productRef = 117F5FAD2C868E4E00049CBB /* LegionUI */; };
+		117F5FB02C868E4E00049CBB /* ThemeLGN in Frameworks */ = {isa = PBXBuildFile; productRef = 117F5FAF2C868E4E00049CBB /* ThemeLGN */; };
 		11B4AD232C69A387008483E7 /* CoalCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AD222C69A387008483E7 /* CoalCardView.swift */; };
 		11B4AD252C69A533008483E7 /* CoalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AD242C69A533008483E7 /* CoalLabel.swift */; };
 		11BCCA352C6AF5E3009BCE2E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BCCA342C6AF5E3009BCE2E /* NetworkManager.swift */; };
@@ -88,6 +90,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				117F5FB02C868E4E00049CBB /* ThemeLGN in Frameworks */,
+				117F5FAE2C868E4E00049CBB /* LegionUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +242,10 @@
 			dependencies = (
 			);
 			name = CoalFramework;
+			packageProductDependencies = (
+				117F5FAD2C868E4E00049CBB /* LegionUI */,
+				117F5FAF2C868E4E00049CBB /* ThemeLGN */,
+			);
 			productName = CoalFramework;
 			productReference = 11E016ED2C63D3E600AC0395 /* CoalFramework.framework */;
 			productType = "com.apple.product-type.framework";
@@ -288,6 +296,9 @@
 				Base,
 			);
 			mainGroup = 11E016E32C63D3E600AC0395;
+			packageReferences = (
+				117F5FAC2C868E4E00049CBB /* XCRemoteSwiftPackageReference "legion-ios" */,
+			);
 			productRefGroup = 11E016EE2C63D3E600AC0395 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -367,6 +378,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -401,7 +413,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				"EXCLUDED_ARCHS[sdk=iphoneos*]" = arm64;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -416,7 +428,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -434,6 +446,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -476,7 +489,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -504,7 +517,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -539,7 +552,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -601,7 +614,7 @@
 				11E016FE2C63D3E600AC0395 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		11E016FF2C63D3E600AC0395 /* Build configuration list for PBXNativeTarget "CoalFramework" */ = {
 			isa = XCConfigurationList;
@@ -610,7 +623,7 @@
 				11E017012C63D3E600AC0395 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		11E017022C63D3E600AC0395 /* Build configuration list for PBXNativeTarget "CoalFrameworkTests" */ = {
 			isa = XCConfigurationList;
@@ -619,9 +632,33 @@
 				11E017042C63D3E600AC0395 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		117F5FAC2C868E4E00049CBB /* XCRemoteSwiftPackageReference "legion-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "ssh://git@gitlab.playcourt.id:31022/mobileteam/legion-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		117F5FAD2C868E4E00049CBB /* LegionUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 117F5FAC2C868E4E00049CBB /* XCRemoteSwiftPackageReference "legion-ios" */;
+			productName = LegionUI;
+		};
+		117F5FAF2C868E4E00049CBB /* ThemeLGN */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 117F5FAC2C868E4E00049CBB /* XCRemoteSwiftPackageReference "legion-ios" */;
+			productName = ThemeLGN;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 11E016E42C63D3E600AC0395 /* Project object */;
 }
