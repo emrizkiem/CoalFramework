@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		117F5F432C7C185500049CBB /* Assets.xcassets in Sources */ = {isa = PBXBuildFile; fileRef = 11E0176E2C6486AB00AC0395 /* Assets.xcassets */; };
+		117F5FAB2C86897C00049CBB /* NetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117F5FAA2C86897C00049CBB /* NetworkObserver.swift */; };
 		11B4AD232C69A387008483E7 /* CoalCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AD222C69A387008483E7 /* CoalCardView.swift */; };
 		11B4AD252C69A533008483E7 /* CoalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AD242C69A533008483E7 /* CoalLabel.swift */; };
 		11BCCA352C6AF5E3009BCE2E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BCCA342C6AF5E3009BCE2E /* NetworkManager.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		117F5FAA2C86897C00049CBB /* NetworkObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkObserver.swift; sourceTree = "<group>"; };
 		11B4AD222C69A387008483E7 /* CoalCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoalCardView.swift; sourceTree = "<group>"; };
 		11B4AD242C69A533008483E7 /* CoalLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoalLabel.swift; sourceTree = "<group>"; };
 		11BCCA342C6AF5E3009BCE2E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				11BCCA342C6AF5E3009BCE2E /* NetworkManager.swift */,
 				11BCCA3A2C6AF6E2009BCE2E /* NetworkConfig.swift */,
 				11D54E992C78604900F974FB /* NetworkLogger.swift */,
+				117F5FAA2C86897C00049CBB /* NetworkObserver.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				11B4AD252C69A533008483E7 /* CoalLabel.swift in Sources */,
 				11BCCA352C6AF5E3009BCE2E /* NetworkManager.swift in Sources */,
 				11D54E9A2C78604900F974FB /* NetworkLogger.swift in Sources */,
+				117F5FAB2C86897C00049CBB /* NetworkObserver.swift in Sources */,
 				11BCCA3D2C6AF83F009BCE2E /* CoalPersistent.swift in Sources */,
 				11BCCA402C6AF865009BCE2E /* CoalUser.swift in Sources */,
 				11E017642C647A8500AC0395 /* CoalNavigator.swift in Sources */,
