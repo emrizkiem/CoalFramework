@@ -25,15 +25,13 @@ public class CoalConfig {
   public var splashScreenDuration: TimeInterval = 2.0
   
   public var window: UIWindow?
-  public var loginDelegate: LoginNavigationDelegate?
   private let network = NetworkManager.shared
   
-  public func configure(window: UIWindow?, transition: UIView.AnimationOptions = .transitionCrossDissolve, animationDuration: TimeInterval = 0.5, splashScreenDuration: TimeInterval = 2.0, loginDelegate: LoginNavigationDelegate? = nil) {
+  public func configure(window: UIWindow?, transition: UIView.AnimationOptions = .transitionCrossDissolve, animationDuration: TimeInterval = 0.5, splashScreenDuration: TimeInterval = 2.0) {
     self.transition = transition
     self.animationDuration = animationDuration
     self.splashScreenDuration = splashScreenDuration
     self.window = window
-    self.loginDelegate = loginDelegate
     LGN.configure()
   }
   

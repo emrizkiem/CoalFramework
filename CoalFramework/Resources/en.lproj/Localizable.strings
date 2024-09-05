@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  CoalFramework
+
+  Created by ArifRachman on 05/09/24.
+  
+*/
+
+/* Login View */
+"login_title" = "Login";
+"login_description" = "Please enter your username and password";
+"forgot_password" = "Forgot password?";

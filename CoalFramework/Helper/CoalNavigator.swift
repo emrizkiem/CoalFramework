@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 public class CoalNavigator {
   public static let shared = CoalNavigator()
@@ -37,6 +38,16 @@ public class CoalNavigator {
     window.makeKeyAndVisible()
   }
   
+  public func setSwiftUIView<Content: View>(swiftUIView: Content, backgroundColor: UIColor? = nil) {
+    let hostingController = UIHostingController(rootView: swiftUIView)
+    
+    if let backgroundColor = backgroundColor {
+      hostingController.view.backgroundColor = backgroundColor
+    }
+    
+    setRootViewController(viewController: hostingController, animated: false)
+  }
+  
   public func showSplashScreen(backgroundColor: UIColor? = nil, logo: String? = nil, completion: (() -> Void)? = nil) {
     var logoImage: UIImage?
     if let logoName = logo {
@@ -60,15 +71,9 @@ public class CoalNavigator {
     }
   }
   
-  public func showLoginPage(backgroundColor: UIColor, logo: String? = nil) {
-    var logoImage: UIImage?
-    if let logoName = logo {
-      logoImage = UIImage(named: logoName)
-    }
-    
-    let loginVC = LoginFactory.createLoginPage(backgroundColor: backgroundColor, logo: logoImage)
-    loginVC.delegate = config.loginDelegate
-    setRootViewController(viewController: loginVC, animated: true)
+  public func showLoginPage(backgroundColor: UIColor = .white, logo: String? = nil) {
+    let loginView = LoginView(config: ConfigModel.currentConfig, headerImageName: logo, backgroundColor: Color(backgroundColor))
+    setSwiftUIView(swiftUIView: loginView, backgroundColor: backgroundColor)
   }
   
   public func showHomePage(backgroundColor: UIColor, userName: String = "") {
