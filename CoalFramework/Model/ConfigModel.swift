@@ -31,12 +31,11 @@ public struct ConfigProject: Codable {
 
 public struct ConfigPages: Codable {
   let login: ConfigPage?
-  let home: ConfigPage?
 }
 
 public struct ConfigPage: Codable {
   let header: ConfigHeader?
-  let form: ConfigForm?
+  let form: [ConfigField]?
 }
 
 public struct ConfigHeader: Codable {
@@ -45,13 +44,18 @@ public struct ConfigHeader: Codable {
   let image: String?
 }
 
-public struct ConfigForm: Codable {
-  let username: ConfigField?
-  let password: ConfigField?
-  let submit: ConfigField?
+enum ConfigFieldType: String, Codable {
+  case text
+  case email
+  case phone
+  case password
+  case number
+  case date
+  case button
 }
 
 public struct ConfigField: Codable {
+  let type: ConfigFieldType
   let label: String?
   let placeholder: String?
 }
