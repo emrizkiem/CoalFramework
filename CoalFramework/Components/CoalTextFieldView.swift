@@ -13,6 +13,18 @@ struct CoalTextFieldView: View {
   @Binding var value: String
   @Binding var isSecure: Bool
   
+  private var isPasswordField: Bool {
+    field.type == .password
+  }
+  
+  private var secureButton: some View {
+    Button(action: {
+      isSecure.toggle()
+    }) {
+      Image(uiImage: isSecure ? UIImage.eyeOff! : UIImage.eyeOn!)
+    }
+  }
+  
   var body: some View {
     VStack(alignment: .leading) {
       OutlineTxtField(
@@ -21,6 +33,7 @@ struct CoalTextFieldView: View {
         label: field.label ?? ""
       )
       .setSecured($isSecure)
+      .setRightView(isPasswordField ? secureButton : nil)
       .padding(.top, 10)
     }
   }

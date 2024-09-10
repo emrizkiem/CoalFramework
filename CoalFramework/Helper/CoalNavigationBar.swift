@@ -20,7 +20,7 @@ extension CoalViewController {
   private func setDefaultNavigationTheme() {
     navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
     navigationController?.navigationBar.shadowImage = UIImage()
-    navigationController?.navigationBar.barTintColor  = .primaryColor
+    navigationController?.navigationBar.barTintColor  = .white
     navigationController?.interactivePopGestureRecognizer?.delegate = nil
     navigationController?.setNavigationBarHidden(false, animated: false)
   }
@@ -37,7 +37,7 @@ extension CoalViewController {
   private func setNavigationBarCustomBackground(color: UIColor) {
     navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
     navigationController?.navigationBar.shadowImage = UIImage()
-    navigationController?.navigationBar.barTintColor = .primaryColor
+    navigationController?.navigationBar.barTintColor = .white
     navigationController?.navigationBar.backgroundColor = .clear
     navigationController?.interactivePopGestureRecognizer?.delegate = nil
   }

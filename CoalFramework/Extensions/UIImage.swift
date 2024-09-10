@@ -16,6 +16,10 @@ public extension UIImage {
   static let logout = UIImage(named: "icLogout", in: frameworkBundle, compatibleWith: nil)
   static let home = UIImage(named: "icHome", in: frameworkBundle, compatibleWith: nil)
   static let about = UIImage(named: "icAbout", in: frameworkBundle, compatibleWith: nil)
+  
+  static let eyeOn = UIImage(named: "icEyeOn", in: frameworkBundle, compatibleWith: nil)
+  static let eyeOff = UIImage(named: "icEyeOff", in: frameworkBundle, compatibleWith: nil)
+  static let icInfo = UIImage(systemName: "info.circle")
 }
 
 public extension UIImage {

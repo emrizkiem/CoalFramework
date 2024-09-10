@@ -2,11 +2,15 @@
   Localizable.strings
   CoalFramework
 
-  Created by ArifRachman on 05/09/24.
+  Created by ArifRachman on 10/09/24.
   
 */
 
-/* Login View */
 "login_title" = "Login";
 "login_description" = "Please enter your username and password";
-"forgot_password" = "Forgot password?";
+"forgot_username_password" = "Forgot Username or Password?";
+"dont_have_account" = "Don't have an account?";
+"register" = "Register";
+"have_account_problem" = "Have an account problem?";
+"contact_us" = "Contact us";
+

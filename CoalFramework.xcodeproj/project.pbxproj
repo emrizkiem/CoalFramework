@@ -16,6 +16,9 @@
 		117F5FCA2C894E8100049CBB /* LegionUI in Frameworks */ = {isa = PBXBuildFile; productRef = 117F5FC92C894E8100049CBB /* LegionUI */; };
 		117F5FCC2C894E8500049CBB /* ThemeLGN in Frameworks */ = {isa = PBXBuildFile; productRef = 117F5FCB2C894E8500049CBB /* ThemeLGN */; };
 		119DD70D2C895FB200A7253A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119DD70C2C895FB200A7253A /* LoginViewModel.swift */; };
+		119DD7122C8AB33900A7253A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119DD7112C8AB33900A7253A /* Color.swift */; };
+		119DD7212C8FFBBD00A7253A /* Localizable.strings in Sources */ = {isa = PBXBuildFile; fileRef = 119DD7202C8FFBB100A7253A /* Localizable.strings */; };
+		119DD7232C8FFCCE00A7253A /* CoalString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119DD7222C8FFCCE00A7253A /* CoalString.swift */; };
 		11B4AD232C69A387008483E7 /* CoalCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AD222C69A387008483E7 /* CoalCardView.swift */; };
 		11BCCA352C6AF5E3009BCE2E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BCCA342C6AF5E3009BCE2E /* NetworkManager.swift */; };
 		11BCCA372C6AF5FE009BCE2E /* CoalAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BCCA362C6AF5FE009BCE2E /* CoalAPI.swift */; };
@@ -35,7 +38,6 @@
 		11E0176B2C64811400AC0395 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0176A2C64811400AC0395 /* HomeViewController.swift */; };
 		11E017712C6490BC00AC0395 /* CoalConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E017702C6490BC00AC0395 /* CoalConfig.swift */; };
 		11E017742C64932500AC0395 /* CoalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E017732C64932500AC0395 /* CoalNotifications.swift */; };
-		11E0177A2C6494A900AC0395 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E017792C6494A900AC0395 /* UIColor.swift */; };
 		11E0177C2C6495B600AC0395 /* CoalNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0177B2C6495B600AC0395 /* CoalNavigationBar.swift */; };
 		11E0177E2C64971F00AC0395 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0177D2C64971F00AC0395 /* UIImage.swift */; };
 		11E017802C64CAEB00AC0395 /* CoalTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0177F2C64CAEB00AC0395 /* CoalTabBarController.swift */; };
@@ -59,7 +61,9 @@
 		117F5FC22C887D8B00049CBB /* CoalButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoalButtonView.swift; sourceTree = "<group>"; };
 		117F5FC62C894DF800049CBB /* CoalLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoalLabel.swift; sourceTree = "<group>"; };
 		119DD70C2C895FB200A7253A /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		119DD70F2C899DEF00A7253A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		119DD7112C8AB33900A7253A /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		119DD71F2C8FFBB100A7253A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		119DD7222C8FFCCE00A7253A /* CoalString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoalString.swift; sourceTree = "<group>"; };
 		11B4AD222C69A387008483E7 /* CoalCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoalCardView.swift; sourceTree = "<group>"; };
 		11BCCA342C6AF5E3009BCE2E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		11BCCA362C6AF5FE009BCE2E /* CoalAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoalAPI.swift; sourceTree = "<group>"; };
@@ -81,7 +85,6 @@
 		11E0176E2C6486AB00AC0395 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11E017702C6490BC00AC0395 /* CoalConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoalConfig.swift; sourceTree = "<group>"; };
 		11E017732C64932500AC0395 /* CoalNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoalNotifications.swift; sourceTree = "<group>"; };
-		11E017792C6494A900AC0395 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		11E0177B2C6495B600AC0395 /* CoalNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoalNavigationBar.swift; sourceTree = "<group>"; };
 		11E0177D2C64971F00AC0395 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		11E0177F2C64CAEB00AC0395 /* CoalTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoalTabBarController.swift; sourceTree = "<group>"; };
@@ -119,7 +122,7 @@
 		119DD7082C89550100A7253A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				119DD7102C899DEF00A7253A /* Localizable.strings */,
+				119DD7202C8FFBB100A7253A /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 				11E0177B2C6495B600AC0395 /* CoalNavigationBar.swift */,
 				11E017732C64932500AC0395 /* CoalNotifications.swift */,
 				11BCCA3C2C6AF83F009BCE2E /* CoalPersistent.swift */,
+				119DD7222C8FFCCE00A7253A /* CoalString.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -237,9 +241,9 @@
 		11E017762C64945A00AC0395 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				11E017792C6494A900AC0395 /* UIColor.swift */,
 				11E0177D2C64971F00AC0395 /* UIImage.swift */,
 				11D54E972C785D2D00F974FB /* UIImageView.swift */,
+				119DD7112C8AB33900A7253A /* Color.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -352,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				119DD7212C8FFBBD00A7253A /* Localizable.strings in Sources */,
 				117F5F432C7C185500049CBB /* Assets.xcassets in Sources */,
 				11E017712C6490BC00AC0395 /* CoalConfig.swift in Sources */,
 				117F5FC32C887D8B00049CBB /* CoalButtonView.swift in Sources */,
@@ -366,15 +371,16 @@
 				11B4AD232C69A387008483E7 /* CoalCardView.swift in Sources */,
 				11E017822C64CB9000AC0395 /* AboutViewController.swift in Sources */,
 				11D54E942C7822A600F974FB /* APIError.swift in Sources */,
-				11E0177A2C6494A900AC0395 /* UIColor.swift in Sources */,
 				11E017692C647C6400AC0395 /* CoalViewController.swift in Sources */,
 				117F5FB22C87FEDA00049CBB /* LoginView.swift in Sources */,
+				119DD7122C8AB33900A7253A /* Color.swift in Sources */,
 				11D54E922C76E85B00F974FB /* ConfigModel.swift in Sources */,
 				11D54E982C785D2D00F974FB /* UIImageView.swift in Sources */,
 				11E017802C64CAEB00AC0395 /* CoalTabBarController.swift in Sources */,
 				119DD70D2C895FB200A7253A /* LoginViewModel.swift in Sources */,
 				11BCCA352C6AF5E3009BCE2E /* NetworkManager.swift in Sources */,
 				11D54E9A2C78604900F974FB /* NetworkLogger.swift in Sources */,
+				119DD7232C8FFCCE00A7253A /* CoalString.swift in Sources */,
 				117F5FAB2C86897C00049CBB /* NetworkObserver.swift in Sources */,
 				11BCCA3D2C6AF83F009BCE2E /* CoalPersistent.swift in Sources */,
 				11BCCA402C6AF865009BCE2E /* CoalUser.swift in Sources */,
@@ -402,10 +408,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		119DD7102C899DEF00A7253A /* Localizable.strings */ = {
+		119DD7202C8FFBB100A7253A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				119DD70F2C899DEF00A7253A /* en */,
+				119DD71F2C8FFBB100A7253A /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -419,6 +425,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -487,6 +494,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
