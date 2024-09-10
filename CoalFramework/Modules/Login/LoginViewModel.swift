@@ -18,7 +18,7 @@ class LoginViewModel: ObservableObject {
   }
   
   var formFields: [ConfigField]? {
-    config?.pages?.login?.form
+    config?.pages?.login?.fields
   }
   
   init(config: ConfigModel? = nil) {

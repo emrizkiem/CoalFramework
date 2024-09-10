@@ -12,7 +12,7 @@ struct CoalButtonView: View {
   let field: ConfigField
   
   var body: some View {
-    LGNSolidButton(title: field.label ?? "BUTTON")
+    LGNSolidButton(title: field.label ?? "BUTTON", defaultBtnColor: Color.redButton)
       .variant(size: .medium, responsive: true)
       .padding(.top, 10)
   }

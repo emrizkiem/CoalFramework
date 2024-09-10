@@ -11,8 +11,8 @@ import ThemeLGN
 
 struct LoginView: View {
   @StateObject private var viewModel: LoginViewModel
-  private let backgroundColor: Color
   private let headerImageName: String?
+  private let backgroundColor: Color
   
   init(config: ConfigModel? = nil, headerImageName: String? = nil, backgroundColor: Color = .white) {
     _viewModel = StateObject(wrappedValue: LoginViewModel(config: config))
@@ -21,66 +21,71 @@ struct LoginView: View {
   }
   
   var body: some View {
-    VStack(alignment: .leading) {
-      HeaderView(configHeader: viewModel.configHeader, localImageName: headerImageName)
-      
-      if let form = viewModel.formFields {
-        FormView(form: form, viewModel: viewModel)
-        ButtonView(form: form)
-      }
+    VStack(spacing: 40) {
+      headerView
+      Spacer()
+      bottomSheetView
     }
-    .padding(.horizontal, 20)
-    .background(backgroundColor)
-    .edgesIgnoringSafeArea(.all)
+    .background(Color.mainBackground)
+  }
+  
+  private var headerView: some View {
+    HeaderImageView(clientImageName: headerImageName, remoteImageURL: viewModel.configHeader?.image)
+      .frame(width: 125, height: 125)
+      .padding(.top, 60)
+  }
+  
+  private var bottomSheetView: some View {
+    LGNBottomSheet(isShowing: .constant(true), dragable: false) {
+      VStack(alignment: .leading, spacing: 5) {
+        HeaderView(configHeader: viewModel.configHeader)
+        if let form = viewModel.formFields {
+          FormView(form: form, viewModel: viewModel)
+          ButtonView(form: form)
+        }
+        Spacer()
+        FooterView()
+      }
+      .padding(.horizontal, 20)
+    }
   }
 }
 
 struct HeaderView: View {
   let configHeader: ConfigHeader?
-  let localImageName: String?
   
   var body: some View {
-    VStack(spacing: 8) {
-      HeaderImageView(localImageName: localImageName, remoteImageURL: configHeader?.image)
-        .frame(width: 125, height: 125)
-      
-      if let title = configHeader?.title {
-        Text(configHeader?.title ?? "login_title")
-          .LGNHeading4(color: .black)
-          .frame(maxWidth: .infinity, alignment: .leading)
-          .padding(.top, 20)
-      }
-      
-      if let description = configHeader?.description {
-        Text(description)
-          .LGNHeading6(color: .black)
-          .frame(maxWidth: .infinity, alignment: .leading)
-      }
+    VStack(alignment: .leading, spacing: 8) {
+      Text(configHeader?.title ?? CoalString.loginTitle)
+        .lgnHeading5()
+      Text(configHeader?.description ?? CoalString.loginDescription)
+        .lgnBodySmallRegular()
     }
+    .padding(.top, 20)
   }
 }
 
 struct HeaderImageView: View {
-  let localImageName: String?
+  let clientImageName: String?
   let remoteImageURL: String?
   
   var body: some View {
-    if let remoteImageURL = remoteImageURL, let url = URL(string: remoteImageURL) {
-      AsyncImage(url: url) { image in
-        image
+    Group {
+      if let urlString = remoteImageURL, let url = URL(string: urlString) {
+        AsyncImage(url: url) { image in
+          image.resizable().scaledToFit()
+        } placeholder: {
+          ProgressView()
+        }
+      } else if let imageName = clientImageName, let image = UIImage(named: imageName) {
+        Image(uiImage: image)
           .resizable()
           .scaledToFit()
-      } placeholder: {
-        ProgressView()
+      } else {
+        Image(uiImage: UIImage.logo!)
+          .resizable()
+          .scaledToFit()
       }
-    } else if let imageName = localImageName, let image = UIImage(named: imageName) {
-      Image(uiImage: image)
-        .resizable()
-        .scaledToFit()
-    } else if let defaultImage = UIImage.logo {
-      Image(uiImage: defaultImage)
-        .resizable()
-        .scaledToFit()
     }
   }
 }
@@ -90,17 +95,13 @@ struct FormView: View {
   @ObservedObject var viewModel: LoginViewModel
   
   var body: some View {
-    VStack {
-      ForEach(form.indices, id: \.self) { index in
-        let field = form[index]
-        
-        if field.type != .button {
-          CoalTextFieldView(
-            field: field,
-            value: viewModel.binding(for: field),
-            isSecure: viewModel.bindingSecure(for: field)
-          )
-        }
+    VStack(spacing: 12) {
+      ForEach(form.filter { $0.type != .checkbox && $0.type != .submit }) { field in
+        CoalTextFieldView(
+          field: field,
+          value: viewModel.binding(for: field),
+          isSecure: viewModel.bindingSecure(for: field)
+        )
       }
     }
     .padding(.vertical, 10)
@@ -111,25 +112,49 @@ struct ButtonView: View {
   let form: [ConfigField]
   
   var body: some View {
-    VStack {
+    VStack(spacing: 10) {
       HStack {
         Spacer()
-        LGNAnchorText(title: "forgot_password")
+        AnchorText(title: CoalString.forgotUsernameOrPassword, tintColor: Color.LGNTheme.secondary500)
+          .variant(size: .small)
       }
       
-      ForEach(form.indices, id: \.self) { index in
-        let field = form[index]
-        
-        if field.type == .button {
-          CoalButtonView(field: field)
-        }
+      ForEach(form.filter { $0.type == .submit }) { field in
+        CoalButtonView(field: field)
+          .padding(.vertical, 10)
       }
+      
+      HStack(spacing: 0) {
+        Text(CoalString.doNotHaveAccount)
+          .LGNBodySmall(color: LGNColor.tertiary500)
+        AnchorText(title: CoalString.register, tintColor: Color.LGNTheme.secondary500)
+          .variant(size: .small)
+      }
+      .padding(.vertical, 10)
+    }
+  }
+}
+
+struct FooterView: View {
+  var body: some View {
+    VStack(spacing: 8) {
+      HStack {
+        Spacer()
+        Image(uiImage: UIImage.icInfo!)
+          .frame(width: 16, height: 16)
+          .foregroundColor(LGNColor.tertiary500)
+        Text(CoalString.haveAccountProblem)
+          .LGNBodySmall(color: LGNColor.tertiary500)
+        Spacer()
+      }
+      AnchorText(title: CoalString.contactUs, tintColor: Color.LGNTheme.secondary500)
+        .variant(size: .small)
     }
   }
 }
 
 struct LoginView_Previews: PreviewProvider {
   static var previews: some View {
-    LoginView(backgroundColor: .white)
+    LoginView()
   }
 }
