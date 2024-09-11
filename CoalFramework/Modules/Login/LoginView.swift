@@ -44,7 +44,7 @@ struct LoginView: View {
         HeaderView(configHeader: viewModel.configHeader)
         if let form = viewModel.formFields {
           FormView(form: form, viewModel: viewModel)
-          ButtonView(form: form)
+          ButtonView(form: form, config: viewModel.config)
         }
         Spacer()
         FooterView()
@@ -113,6 +113,7 @@ struct FormView: View {
 
 struct ButtonView: View {
   let form: [ConfigField]
+  let config: ConfigModel?
   
   var body: some View {
     VStack(spacing: 10) {
@@ -130,7 +131,7 @@ struct ButtonView: View {
       HStack(spacing: 2) {
         Text(CoalString.doNotHaveAccount)
           .LGNBodySmall(color: LGNColor.tertiary500)
-        NavigationLink(destination: RegisterView()) {
+        NavigationLink(destination: RegisterView(config: config)) {
           Text(CoalString.register)
             .LGNBodySmall(color: Color.LGNTheme.secondary500)
         }
@@ -158,8 +159,8 @@ struct FooterView: View {
   }
 }
 
-//struct LoginView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    LoginView()
-//  }
-//}
+struct LoginView_Previews: PreviewProvider {
+  static var previews: some View {
+    LoginView()
+  }
+}

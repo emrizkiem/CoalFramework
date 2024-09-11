@@ -37,7 +37,7 @@ struct RegisterView: View {
           RegisterButtonView(form: form)
         }
         Spacer()
-        RegisterFooterView()
+        RegisterFooterView(config: viewModel.config)
       }
       .padding(.horizontal, 20)
     }
@@ -124,6 +124,8 @@ struct RegisterButtonView: View {
 }
 
 struct RegisterFooterView: View {
+  let config: ConfigModel?
+  
   var body: some View {
     VStack {
       Spacer()
@@ -131,7 +133,7 @@ struct RegisterFooterView: View {
         Spacer()
         Text(CoalString.alreadyHaveAccount)
           .LGNBodySmall(color: LGNColor.tertiary500)
-        NavigationLink(destination: LoginView()) {
+        NavigationLink(destination: LoginView(config: config)) {
           Text(CoalString.loginTitle)
             .LGNBodySmall(color: Color.LGNTheme.secondary500)
         }
@@ -142,8 +144,8 @@ struct RegisterFooterView: View {
   }
 }
 
-//struct RegisterView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    RegisterView()
-//  }
-//}
+struct RegisterView_Previews: PreviewProvider {
+  static var previews: some View {
+    RegisterView()
+  }
+}
