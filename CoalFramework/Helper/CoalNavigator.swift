@@ -76,6 +76,11 @@ public class CoalNavigator {
     setSwiftUIView(swiftUIView: loginView, backgroundColor: backgroundColor)
   }
   
+  public func showRegisterPage(backgroundColor: UIColor = .white) {
+    let registerView = RegisterView(config: ConfigModel.currentConfig, backgroundColor: Color(backgroundColor))
+    setSwiftUIView(swiftUIView: registerView, backgroundColor: backgroundColor)
+  }
+  
   public func showHomePage(backgroundColor: UIColor, userName: String = "") {
     let tabBarController = CoalTabBarController(userName: userName)
     self.tabBarController = tabBarController
@@ -93,6 +98,7 @@ public class CoalNavigator {
       showHomePage(backgroundColor: .black, userName: userName)
     } else {
       showLoginPage(backgroundColor: .white, logo: logoToUse)
+//      showRegisterPage(backgroundColor: .white)
     }
   }
   

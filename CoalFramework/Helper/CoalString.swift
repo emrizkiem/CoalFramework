@@ -22,4 +22,8 @@ struct CoalString {
   static let register = localized(forKey: "register")
   static let haveAccountProblem = localized(forKey: "have_account_problem")
   static let contactUs = localized(forKey: "contact_us")
+  static let registerDescription = localized(forKey: "register_description")
+  static let termCondition = localized(forKey: "term_condition")
+  static let alreadyHaveAccount = localized(forKey: "already_have_account")
+  static let zonePhone = localized(forKey: "zone_phone")
 }
