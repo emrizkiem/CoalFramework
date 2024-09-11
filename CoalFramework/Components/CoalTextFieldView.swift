@@ -25,12 +25,21 @@ struct CoalTextFieldView: View {
     }
   }
   
+  private var prefix: ContentModel? {
+    if field.type == .phone {
+      return ContentModel(text: CoalString.zonePhone)
+    } else {
+      return nil
+    }
+  }
+  
   var body: some View {
     VStack(alignment: .leading) {
       OutlineTxtField(
         titleKey: LocalizedStringKey(field.placeholder ?? ""),
         text: $value,
-        label: field.label ?? ""
+        label: field.label ?? "",
+        prefix: prefix
       )
       .setSecured($isSecure)
       .setRightView(isPasswordField ? secureButton : nil)

@@ -13,4 +13,8 @@
 "register" = "Register";
 "have_account_problem" = "Have an account problem?";
 "contact_us" = "Contact us";
+"register_description" = "Register your account";
+"term_condition" = "I agree to Term & Condition and Privacy Policy";
+"already_have_account" = "Already have an account?";
+"zone_phone" = "+62";
 
