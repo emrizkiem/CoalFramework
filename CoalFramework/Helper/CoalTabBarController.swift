@@ -46,7 +46,6 @@ public class CoalTabBarController: UITabBarController {
   
   public func addDefaultTabs() {
     addTab(viewController: HomeFactory.createHomePage(backgroundColor: .white, userName: userName))
-    addTab(viewController: AboutFactory.createAboutPage(backgroundColor: .white))
   }
   
   private func createNavController(for viewController: UIViewController) -> UINavigationController {

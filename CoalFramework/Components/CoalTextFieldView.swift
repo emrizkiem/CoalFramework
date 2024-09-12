@@ -21,7 +21,7 @@ struct CoalTextFieldView: View {
     Button(action: {
       isSecure.toggle()
     }) {
-      Image(uiImage: isSecure ? UIImage.eyeOff! : UIImage.eyeOn!)
+      isSecure ? Image.eyeOff : Image.eyeOn
     }
   }
   

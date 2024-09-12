@@ -87,11 +87,6 @@ public class CoalNavigator {
     setRootViewController(viewController: tabBarController, animated: true)
   }
   
-  public func showAboutPage(backgroundColor: UIColor) {
-    let aboutVC = AboutFactory.createAboutPage(backgroundColor: backgroundColor)
-    setRootViewController(viewController: aboutVC, animated: true)
-  }
-  
   public func showInitialPage(isLoggedIn: Bool, userName: String = "", logo: String? = nil) {
     let logoToUse = logo ?? self.logoName
     if isLoggedIn {
