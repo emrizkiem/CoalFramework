@@ -14,7 +14,10 @@
 "have_account_problem" = "Have an account problem?";
 "contact_us" = "Contact us";
 "register_description" = "Register your account";
-"term_condition" = "I agree to Term & Condition and Privacy Policy";
+"agreement" = "I agree to";
+"term_condition" = "Term & Condition";
+"and" = "and";
+"privacy_policy" = "Privacy Policy";
 "already_have_account" = "Already have an account?";
 "zone_phone" = "+62";
 
