@@ -19,13 +19,10 @@ struct RegisterView: View {
   }
   
   var body: some View {
-    NavigationView {
-      VStack {
-        bottomSheetView
-      }
-      .padding(.top, 24)
+    VStack {
+      bottomSheetView
     }
-    .navigationBarBackButtonHidden(true)
+    .padding(.top, 24)
   }
   
   private var bottomSheetView: some View {
@@ -44,7 +41,7 @@ struct RegisterView: View {
   }
 }
 
-struct RegisterHeaderView: View {
+private struct RegisterHeaderView: View {
   let configHeader: ConfigHeader?
   
   var body: some View {
@@ -58,7 +55,7 @@ struct RegisterHeaderView: View {
   }
 }
 
-struct RegisterFormView: View {
+private struct RegisterFormView: View {
   let form: [ConfigField]
   @ObservedObject var viewModel: RegisterViewModel
   
@@ -76,7 +73,7 @@ struct RegisterFormView: View {
   }
 }
 
-struct AgreementView: View {
+private struct AgreementView: View {
   @Binding var isAgreed: Bool
   
   var body: some View {
@@ -88,26 +85,20 @@ struct AgreementView: View {
           isAgreed = isChecked
         }
       )
-      Text("I agree to")
-        .LGNBodySmall(color: .black)
-      if #available(iOS 16.0, *) {
-        Text("Term & Condition")
-          .LGNBodySmall(color: .blue)
-          .underline()
-      }
-      Text("and")
-        .LGNBodySmall(color: .black)
-      if #available(iOS 16.0, *) {
-        Text("Privacy Policy")
-          .LGNBodySmall(color: .blue)
-          .underline()
-      }
+      Text(CoalString.agreement)
+        .LGNBodySmall(color: LGNColor.tertiary500)
+      AnchorText(title: CoalString.termCondition, tintColor: Color.LGNTheme.secondary500)
+        .variant(size: .small)
+      Text(CoalString.and)
+        .LGNBodySmall(color: LGNColor.tertiary500)
+      AnchorText(title: CoalString.privacyPolicy, tintColor: Color.LGNTheme.secondary500)
+        .variant(size: .small)
     }
     .padding(.horizontal, 10)
   }
 }
 
-struct RegisterButtonView: View {
+private struct RegisterButtonView: View {
   let form: [ConfigField]
   @State private var isAgreed = false
   
@@ -123,18 +114,17 @@ struct RegisterButtonView: View {
   }
 }
 
-struct RegisterFooterView: View {
+private struct RegisterFooterView: View {
   var body: some View {
     VStack {
       Spacer()
-      HStack(spacing: 2) {
+      HStack(spacing: 0) {
         Spacer()
         Text(CoalString.alreadyHaveAccount)
           .LGNBodySmall(color: LGNColor.tertiary500)
-        NavigationLink(destination: LoginView()) {
-          Text(CoalString.loginTitle)
-            .LGNBodySmall(color: Color.LGNTheme.secondary500)
-        }
+        AnchorText(title: CoalString.loginTitle, tintColor: Color.LGNTheme.secondary500) {
+          CoalNavigator.shared.showLoginPage()
+        }.variant(size: .small)
         Spacer()
       }
       .padding(.bottom, 24)
@@ -142,8 +132,8 @@ struct RegisterFooterView: View {
   }
 }
 
-//struct RegisterView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    RegisterView()
-//  }
-//}
+struct RegisterView_Previews: PreviewProvider {
+  static var previews: some View {
+    RegisterView()
+  }
+}

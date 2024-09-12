@@ -98,7 +98,6 @@ public class CoalNavigator {
       showHomePage(backgroundColor: .black, userName: userName)
     } else {
       showLoginPage(backgroundColor: .white, logo: logoToUse)
-//      showRegisterPage(backgroundColor: .white)
     }
   }
   

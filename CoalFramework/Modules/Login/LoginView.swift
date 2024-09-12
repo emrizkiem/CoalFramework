@@ -21,15 +21,12 @@ struct LoginView: View {
   }
   
   var body: some View {
-    NavigationView {
-      VStack(spacing: 40) {
-        headerView
-        Spacer()
-        bottomSheetView
-      }
-      .background(Color.mainBackground)
+    VStack(spacing: 40) {
+      headerView
+      Spacer()
+      bottomSheetView
     }
-    .navigationBarBackButtonHidden(true)
+    .background(Color.mainBackground)
   }
   
   private var headerView: some View {
@@ -54,7 +51,7 @@ struct LoginView: View {
   }
 }
 
-struct HeaderView: View {
+private struct HeaderView: View {
   let configHeader: ConfigHeader?
   
   var body: some View {
@@ -68,7 +65,7 @@ struct HeaderView: View {
   }
 }
 
-struct HeaderImageView: View {
+private struct HeaderImageView: View {
   let clientImageName: String?
   let remoteImageURL: String?
   
@@ -93,7 +90,7 @@ struct HeaderImageView: View {
   }
 }
 
-struct FormView: View {
+private struct FormView: View {
   let form: [ConfigField]
   @ObservedObject var viewModel: LoginViewModel
   
@@ -111,7 +108,7 @@ struct FormView: View {
   }
 }
 
-struct ButtonView: View {
+private struct ButtonView: View {
   let form: [ConfigField]
   
   var body: some View {
@@ -127,20 +124,19 @@ struct ButtonView: View {
           .padding(.vertical, 10)
       }
       
-      HStack(spacing: 2) {
+      HStack(spacing: 0) {
         Text(CoalString.doNotHaveAccount)
           .LGNBodySmall(color: LGNColor.tertiary500)
-        NavigationLink(destination: RegisterView()) {
-          Text(CoalString.register)
-            .LGNBodySmall(color: Color.LGNTheme.secondary500)
-        }
+        AnchorText(title: CoalString.register, tintColor: Color.LGNTheme.secondary500) {
+          CoalNavigator.shared.showRegisterPage()
+        }.variant(size: .small)
       }
       .padding(.vertical, 10)
     }
   }
 }
 
-struct FooterView: View {
+private struct FooterView: View {
   var body: some View {
     VStack(spacing: 8) {
       HStack {
@@ -158,8 +154,8 @@ struct FooterView: View {
   }
 }
 
-//struct LoginView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    LoginView()
-//  }
-//}
+struct LoginView_Previews: PreviewProvider {
+  static var previews: some View {
+    LoginView()
+  }
+}
