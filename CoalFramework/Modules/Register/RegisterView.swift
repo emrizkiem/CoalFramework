@@ -19,10 +19,12 @@ struct RegisterView: View {
   }
   
   var body: some View {
-    VStack {
-      bottomSheetView
+    CoalBaseView(backgroundImage: Image.mainBackground, backgroundColor: backgroundColor) {
+      VStack(spacing: 40) {
+        Spacer()
+        bottomSheetView
+      }
     }
-    .padding(.top, 24)
   }
   
   private var bottomSheetView: some View {

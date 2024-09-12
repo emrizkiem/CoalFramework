@@ -19,14 +19,15 @@ struct LoginView: View {
     self.headerImageName = headerImageName
     self.backgroundColor = backgroundColor
   }
-  
+
   var body: some View {
-    VStack(spacing: 40) {
-      headerView
-      Spacer()
-      bottomSheetView
+    CoalBaseView(backgroundImage: Image.mainBackground, backgroundColor: backgroundColor) {
+      VStack(spacing: 40) {
+        headerView
+        Spacer()
+        bottomSheetView
+      }
     }
-    .background(Color.mainBackground)
   }
   
   private var headerView: some View {
@@ -82,7 +83,7 @@ private struct HeaderImageView: View {
           .resizable()
           .scaledToFit()
       } else {
-        Image(uiImage: UIImage.logo!)
+        Image.logo
           .resizable()
           .scaledToFit()
       }
@@ -141,7 +142,7 @@ private struct FooterView: View {
     VStack(spacing: 8) {
       HStack {
         Spacer()
-        Image(uiImage: UIImage.icInfo!)
+        Image.icInfo
           .frame(width: 16, height: 16)
           .foregroundColor(LGNColor.tertiary500)
         Text(CoalString.haveAccountProblem)
